@@ -1,3 +1,6 @@
+from typing import List, Optional
+from api.models.schemas import ReasoningStep
+from services.personal_knowledge_model_service import PersonalKnowledgeModelService
 """
 Agent Kai — Main Orchestrator (ADK Compliant)
 
@@ -160,6 +163,18 @@ class KaiOrchestrator(HushhAgent):
 
         if payload.user_id != self.user_id:
             raise ValueError("Token user mismatch")
+        
+    async def log_reasoning_to_pkm(self, user_id: str, trace: List[ReasoningStep]):
+        pkm_service = PersonalKnowledgeModelService()
+        # Store under the 'ai_observability' domain
+        await pkm_service.store_domain_data(
+            user_id=user_id,
+            domain="ai_observability",
+            data={
+                "run_id": getattr(self, "current_run_id", "unknown"), 
+                "trace": [step.dict() for step in trace]
+            }
+        )
 
     async def _run_agent_analysis(
         self, ticker: str, consent_token: str, context: Optional[Dict[str, Any]] = None
@@ -179,6 +194,7 @@ class KaiOrchestrator(HushhAgent):
         )
 
         # Execute in parallel and return results
+        await self.log_reasoning_to_pkm(user_id, collected_trace_steps)
         results = await asyncio.gather(
             fundamental_task, sentiment_task, valuation_task, return_exceptions=True
         )
@@ -193,7 +209,7 @@ class KaiOrchestrator(HushhAgent):
             raise exceptions[0][1]  # raise first; all others are now logged
 
         return results
-
+    
 
 # Export singleton for convenience
 kai_orchestrator = KaiOrchestrator(user_id="default", risk_profile="balanced")

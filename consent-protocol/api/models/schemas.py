@@ -125,3 +125,21 @@ class HistoryRequest(BaseModel):
     userId: str
     page: int = 1
     limit: int = 20
+
+class ReasoningStep(BaseModel):
+    agent_id: str
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    intent: str
+    thought: str
+    action_taken: Optional[str] = None
+    observation: Optional[str] = None
+    confidence_score: float
+
+class ReasoningStep(BaseModel):
+    agent_id: str
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    intent: str
+    thought: str
+    action_taken: Optional[str] = None
+    observation: Optional[str] = None
+    confidence_score: float
