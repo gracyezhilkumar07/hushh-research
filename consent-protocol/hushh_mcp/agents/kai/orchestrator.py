@@ -1,6 +1,3 @@
-from typing import List, Optional
-from api.models.schemas import ReasoningStep
-from services.personal_knowledge_model_service import PersonalKnowledgeModelService
 """
 Agent Kai — Main Orchestrator (ADK Compliant)
 
@@ -19,6 +16,8 @@ import asyncio
 import logging
 from datetime import datetime
 from typing import Any, Dict, Optional
+from api.models.schemas import ReasoningStep
+from services.personal_knowledge_model_service import PersonalKnowledgeModelService
 
 from hushh_mcp.agents.base_agent import HushhAgent
 from hushh_mcp.consent.token import validate_token
@@ -30,6 +29,7 @@ from .decision_generator import DecisionCard, DecisionGenerator
 from .fundamental_agent import FundamentalAgent
 from .sentiment_agent import SentimentAgent
 from .valuation_agent import ValuationAgent
+
 
 logger = logging.getLogger(__name__)
 
@@ -207,7 +207,18 @@ class KaiOrchestrator(HushhAgent):
             for i, e in exceptions:
                 logger.error(f"[Kai] Agent {i} failed: {e}")
             raise exceptions[0][1]  # raise first; all others are now logged
-
+        
+        collected_trace_steps = [
+            ReasoningStep(
+                agent_id=f"agent_{i}",
+                intent="parallel_analysis",
+                thought=str(r),
+                confidence_score=1.0,
+            )
+            for i,r in enumerate(results)
+        ]
+        await self.log_reasoning_to_pkm(self.user_id, collected_trace_steps)
+        
         return results
     
 
