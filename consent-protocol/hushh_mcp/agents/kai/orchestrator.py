@@ -15,10 +15,11 @@ This is the "conductor" that brings everything together:
 import asyncio
 import logging
 from datetime import datetime
-from typing import Any, Dict, Optional
-from api.models.schemas import ReasoningStep
+from typing import Any, Dict, List, Optional
+
 from services.personal_knowledge_model_service import PersonalKnowledgeModelService
 
+from api.models.schemas import ReasoningStep
 from hushh_mcp.agents.base_agent import HushhAgent
 from hushh_mcp.consent.token import validate_token
 from hushh_mcp.constants import GEMINI_MODEL, ConsentScope
@@ -29,7 +30,6 @@ from .decision_generator import DecisionCard, DecisionGenerator
 from .fundamental_agent import FundamentalAgent
 from .sentiment_agent import SentimentAgent
 from .valuation_agent import ValuationAgent
-
 
 logger = logging.getLogger(__name__)
 
@@ -69,9 +69,9 @@ class KaiOrchestrator(HushhAgent):
             system_prompt="""
             You are the Kai Orchestrator, coordinating 3 specialist agents:
             - Fundamental Analyst (blue)
-            - Sentiment Analyst (purple) 
+            - Sentiment Analyst (purple)
             - Valuation Expert (green)
-            
+
             Your job is to orchestrate their analysis and generate a final investment decision.
             """,
             required_scopes=["agent.kai.analyze"],
@@ -163,17 +163,16 @@ class KaiOrchestrator(HushhAgent):
 
         if payload.user_id != self.user_id:
             raise ValueError("Token user mismatch")
-        
+
     async def log_reasoning_to_pkm(self, user_id: str, trace: List[ReasoningStep]):
         pkm_service = PersonalKnowledgeModelService()
-        # Store under the 'ai_observability' domain
         await pkm_service.store_domain_data(
             user_id=user_id,
             domain="ai_observability",
             data={
-                "run_id": getattr(self, "current_run_id", "unknown"), 
-                "trace": [step.dict() for step in trace]
-            }
+                "run_id": getattr(self, "current_run_id", "unknown"),
+                "trace": [step.dict() for step in trace],
+            },
         )
 
     async def _run_agent_analysis(
@@ -194,7 +193,6 @@ class KaiOrchestrator(HushhAgent):
         )
 
         # Execute in parallel and return results
-        await self.log_reasoning_to_pkm(user_id, collected_trace_steps)
         results = await asyncio.gather(
             fundamental_task, sentiment_task, valuation_task, return_exceptions=True
         )
@@ -207,7 +205,7 @@ class KaiOrchestrator(HushhAgent):
             for i, e in exceptions:
                 logger.error(f"[Kai] Agent {i} failed: {e}")
             raise exceptions[0][1]  # raise first; all others are now logged
-        
+
         collected_trace_steps = [
             ReasoningStep(
                 agent_id=f"agent_{i}",
@@ -215,12 +213,12 @@ class KaiOrchestrator(HushhAgent):
                 thought=str(r),
                 confidence_score=1.0,
             )
-            for i,r in enumerate(results)
+            for i, r in enumerate(results)
         ]
         await self.log_reasoning_to_pkm(self.user_id, collected_trace_steps)
-        
+
         return results
-    
+
 
 # Export singleton for convenience
 kai_orchestrator = KaiOrchestrator(user_id="default", risk_profile="balanced")

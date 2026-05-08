@@ -1,7 +1,4 @@
-from datetime import datetime          # ← ADD THIS
-from typing import Any, Dict, List, Optional
-
-from pydantic import BaseModel, Field  # ← ADD Field
+# api/models/schemas.py
 """
 Pydantic models for FastAPI request/response validation.
 
@@ -11,9 +8,10 @@ All request and response schemas are centralized here for:
 - Easy documentation generation
 """
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # ============================================================================
 # AGENT CHAT MODELS
@@ -129,25 +127,13 @@ class HistoryRequest(BaseModel):
     page: int = 1
     limit: int = 20
 
-class ReasoningStep(BaseModel):
-    agent_id: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-    intent: str
-    thought: str
-    action_taken: Optional[str] = None
-    observation: Optional[str] = None
-    confidence_score: float
+
+# ============================================================================
+# AI OBSERVABILITY MODELS
+# ============================================================================
+
 
 class ReasoningStep(BaseModel):
-    agent_id: str
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-    intent: str
-    thought: str
-    action_taken: Optional[str] = None
-    observation: Optional[str] = None
-    confidence_score: float
-
-class ReasoningStep(BaseModel):        # ← KEEP ONLY ONE definition
     agent_id: str
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     intent: str
