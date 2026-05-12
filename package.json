@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@sentry/react": "^10.52.0",
+    "@sentry/tracing": "^7.120.4",
+    "web-vitals": "^5.2.0"
+  }
+}
