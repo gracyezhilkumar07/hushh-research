@@ -1,3 +1,5 @@
+from typing import cast
+
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -12,7 +14,10 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         request: Request,
         call_next,
     ) -> Response:
-        response = await call_next(request)
+        response = cast(
+            Response,
+            await call_next(request),
+        )
 
         response.headers["X-Content-Type-Options"] = (
             "nosniff"
