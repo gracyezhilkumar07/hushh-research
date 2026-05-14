@@ -1,5 +1,5 @@
 ﻿import time
-from collections.abc import Callable
+from typing import Any, Callable, cast
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
@@ -25,4 +25,4 @@ class ResponseTimingMiddleware(BaseHTTPMiddleware):
             f"{process_time:.4f}s"
         )
 
-        return response
+        return cast(Response, response)
