@@ -1,5 +1,5 @@
 ﻿import time
-from typing import Any, Callable, cast
+from typing import Callable, cast
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
