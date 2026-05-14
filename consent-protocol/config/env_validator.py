@@ -1,6 +1,5 @@
 import os
 
-
 REQUIRED_ENV_VARS = {
     "APP_SIGNING_KEY",
     "VAULT_DATA_KEY",
