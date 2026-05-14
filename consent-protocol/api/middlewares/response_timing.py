@@ -1,6 +1,7 @@
+from collections.abc import Callable
 import time
 
-from fastapi import Request
+from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
 
@@ -9,8 +10,11 @@ class ResponseTimingMiddleware(BaseHTTPMiddleware):
     Middleware for tracking API response execution time.
     """
 
-    async def dispatch(self, request: Request, call_next):
-
+    async def dispatch(
+        self,
+        request: Request,
+        call_next: Callable,
+    ) -> Response:
         start_time = time.perf_counter()
 
         response = await call_next(request)
