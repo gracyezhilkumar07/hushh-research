@@ -1,6 +1,3 @@
-from hushh_mcp.consent.token import 
-
-
 def test_disallowed_scope_rejected():
     payload = {
         "allowed_scopes": [
