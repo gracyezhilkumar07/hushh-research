@@ -21,11 +21,6 @@ Modular architecture:
 - mcp/tools/: Tool handlers
 - mcp/resources.py: MCP resources
 """
-from mcp.types import TextContent
-
-from config.env_validator import validate_required_env
-from mcp_modules import resources as mcp_resources
-"""
 
 import asyncio
 import json
@@ -39,18 +34,3 @@ from mcp.types import TextContent
 
 from config.env_validator import validate_required_env
 from mcp_modules import resources as mcp_resources
-
-from config.env_validator import validate_required_env
-from mcp_modules import resources as mcp_resources
-
-from config.env_validator import validate_required_env
-from mcp_modules import resources as mcp_resources
-from config.env_validator import validate_required_env
-from mcp_modules import resources as mcp_resources
-from config.env_validator import validate_required_env
-
-from mcp.types import TextContent
-
-from mcp_modules import resources as mcp_resources
-
-
