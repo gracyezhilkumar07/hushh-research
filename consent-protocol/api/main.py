@@ -1,10 +1,6 @@
+from api.middlewares.request_logging import RequestLoggingMiddleware
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-
-from api.middlewares.request_logging import (
-    RequestLoggingMiddleware,
-)
-
 def test_request_logging_middleware_runtime():
     app = FastAPI()
 
@@ -23,4 +19,4 @@ def test_request_logging_middleware_runtime():
         },
     )
 
-    assert response.status_code == 200
+assert response.status_code == 200  # noqa: S101

@@ -22,15 +22,3 @@ Modular architecture:
 - mcp/resources.py: MCP resources
 """
 
-import asyncio
-import json
-import logging
-import sys
-import time
-
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
-from mcp.types import TextContent
-
-from config.env_validator import validate_required_env
-from mcp_modules import resources as mcp_resources
