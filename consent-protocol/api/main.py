@@ -1,15 +1,15 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from api.middlewares.correlation_id import (
-    CorrelationIDMiddleware,
+from api.middlewares.security_headers import (
+    SecurityHeadersMiddleware,
 )
 
 
-def test_correlation_id_header_present():
+def test_security_headers_present():
     app = FastAPI()
 
-    app.add_middleware(CorrelationIDMiddleware)
+    app.add_middleware(SecurityHeadersMiddleware)
 
     @app.get("/health")
     async def health():
@@ -20,4 +20,18 @@ def test_correlation_id_header_present():
     response = client.get("/health")
 
     assert response.status_code == 200
-    assert "X-Correlation-ID" in response.headers
+
+    assert (
+        response.headers["X-Content-Type-Options"]
+        == "nosniff"
+    )
+
+    assert (
+        response.headers["X-Frame-Options"]
+        == "DENY"
+    )
+
+    assert (
+        response.headers["Referrer-Policy"]
+        == "no-referrer"
+    )
