@@ -28,6 +28,8 @@ import logging
 import sys
 import time
 
+from config.env_validator import validate_required_env
+
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import TextContent
@@ -242,4 +244,5 @@ async def main():
 
 
 if __name__ == "__main__":
+    validate_required_env()
     asyncio.run(main())
