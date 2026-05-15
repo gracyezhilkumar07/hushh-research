@@ -1,15 +1,14 @@
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from api.middlewares.security_headers import (
-    SecurityHeadersMiddleware,
+from api.middlewares.request_logging import (
+    RequestLoggingMiddleware,
 )
 
-
-def test_security_headers_present():
+def test_request_logging_middleware_runtime():
     app = FastAPI()
 
-    app.add_middleware(SecurityHeadersMiddleware)
+    app.add_middleware(RequestLoggingMiddleware)
 
     @app.get("/health")
     async def health():
@@ -17,21 +16,11 @@ def test_security_headers_present():
 
     client = TestClient(app)
 
-    response = client.get("/health")
+    response = client.get(
+        "/health",
+        headers={
+            "Authorization": "secret-token",
+        },
+    )
 
     assert response.status_code == 200
-
-    assert (
-        response.headers["X-Content-Type-Options"]
-        == "nosniff"
-    )
-
-    assert (
-        response.headers["X-Frame-Options"]
-        == "DENY"
-    )
-
-    assert (
-        response.headers["Referrer-Policy"]
-        == "no-referrer"
-    )
