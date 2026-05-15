@@ -187,7 +187,7 @@ def _scope_str_to_enum(scope_str: str) -> ConsentScope:
 # ========== Token Verifier ==========
 
 
-def validate_token(allowed_scopes = payload.get(
+def validate_token(
     if expected_scope:
     allowed_scopes = payload.get(
         "allowed_scopes",
