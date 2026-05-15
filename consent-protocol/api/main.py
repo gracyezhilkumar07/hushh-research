@@ -1,7 +1,6 @@
+from api.middlewares.request_logging import RequestLoggingMiddleware
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-
-from api.middlewares.request_logging import RequestLoggingMiddleware
 def test_request_logging_middleware_runtime():
     app = FastAPI()
 
