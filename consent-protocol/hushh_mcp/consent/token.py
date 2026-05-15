@@ -1,5 +1,3 @@
-# hushh_mcp/consent/token.py
-
 import base64
 import hashlib
 import hmac
@@ -188,22 +186,6 @@ def _scope_str_to_enum(scope_str: str) -> ConsentScope:
 
 
 def validate_token(
-    if expected_scope:
-    allowed_scopes = payload.get(
-        "allowed_scopes",
-        [],
-    )
-
-    if (
-        allowed_scopes
-        and str(expected_scope)
-        not in allowed_scopes
-    ):
-        return (
-            False,
-            "Requested scope not allowed",
-            None,
-        )
     token_str: str,
     expected_scope: Optional[Union[str, ConsentScope]] = None,
     *,
