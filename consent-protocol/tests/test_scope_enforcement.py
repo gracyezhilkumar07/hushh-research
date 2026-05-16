@@ -1,6 +1,3 @@
-from hushh_mcp.consent.token import (
-    validate_token,
-)
 
 
 def test_disallowed_scope_rejected():

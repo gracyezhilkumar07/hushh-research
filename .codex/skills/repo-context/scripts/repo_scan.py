@@ -6,7 +6,7 @@ import json
 import re
 import subprocess
 import sys
-from collections import OrderedDict, defaultdict
+from collections import OrderedDict
 from pathlib import Path
 from typing import Any
 

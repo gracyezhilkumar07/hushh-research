@@ -24,10 +24,9 @@ import os
 import re
 import sys
 import tomllib
-from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Iterable
 
 
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)$", re.DOTALL)
