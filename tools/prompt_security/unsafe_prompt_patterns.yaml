@@ -1,0 +1,15 @@
+unsafe_patterns:
+  - name: Prompt Override
+    regex: "(ignore|bypass).*(instructions|rules)"
+
+  - name: System Prompt Extraction
+    regex: "(reveal|show).*(system prompt)"
+
+  - name: Role Manipulation
+    regex: "you are now"
+
+  - name: Jailbreak Attempt
+    regex: "(developer mode|god mode|unrestricted)"
+
+  - name: Safety Bypass
+    regex: "(disable|remove).*(safety|guardrails)"
