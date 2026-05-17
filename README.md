@@ -178,3 +178,22 @@ In practice:
 - minimal contributor cognitive load
 
 Hussh exists to make consented, scoped, zero-knowledge AI straightforward to build and straightforward to reason about.
+## Local Development Setup
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Start development server
+
+```bash
+npm run dev
+```
+
+### Build project
+
+```bash
+npm run build
+```
