@@ -210,11 +210,12 @@ def main() -> int:
     errors = run(args.root.resolve())
     if errors:
         for error in errors:
-            print(f"ERROR: {error}")
+           logger.error("Smoke test failure: %s", error)
         return 1
     print(f"Agent router smoke passed: {len(SCENARIOS)} scenarios")
     return 0
-
+const limit = Math.min(Number(req.query.limit ?? 50), 100);
+const offset = Math.min(Number(req.query.offset ?? 0), 10000);
 
 if __name__ == "__main__":
     raise SystemExit(main())
