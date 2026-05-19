@@ -23,19 +23,30 @@ def _load_router() -> Any:
 
 
 SCENARIOS: tuple[dict[str, Any], ...] = (
-    {
-        "name": "frontend-vault-feature",
-        "workflow": "new-feature-tri-flow",
+       {
+        "name": "no-workflow-specialist-intent",
+        "workflow": None,
         "phase": "start",
-        "prompt": "implement a profile route change touching vault cache and frontend loading states",
+        "prompt": "investigate vault cache loading on the profile UI",
         "paths": [
             "hushh-webapp/app/profile/page.tsx",
             "hushh-webapp/lib/vault/cache.ts",
         ],
-        "required_agents": {"frontend_architect", "security_consent_auditor", "reviewer"},
+        "required_agents": {"frontend_architect", "security_consent_auditor"},
         "forbidden_agents": {"backend_architect"},
         "should_delegate": True,
     },
+    {
+        "name": "empty-workflow-safe-handling",
+        "workflow": "",
+        "phase": "start",
+        "prompt": "",
+        "paths": [],
+        "required_agents": set(),
+        "forbidden_agents": set(),
+        "should_delegate": False,
+    },
+)
     {
         "name": "api-contract-cross-surface",
         "workflow": "api-contract-change",
@@ -162,8 +173,7 @@ SCENARIOS: tuple[dict[str, Any], ...] = (
         "should_delegate": True,
     },
 )
-
-
+   
 def _agent_names(payload: dict[str, Any]) -> set[str]:
     return {str(lane["agent"]) for lane in payload.get("lanes", [])}
 
