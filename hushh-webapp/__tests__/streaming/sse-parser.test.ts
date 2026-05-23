@@ -60,4 +60,17 @@ describe("parseSSEBlocks", () => {
     const result = parseSSEBlocks(": ping\n\n\n");
     expect(result.events).toHaveLength(0);
   });
+  it("ignores comment heartbeat frames without dropping following events", () => {
+    const input =
+      ": keep-alive\n\n" +
+      'event: stage\n' +
+      'data: {"stage":"ready"}\n\n';
+
+    const result = parseSSEBlocks(input);
+
+    expect(result.remainder).toBe("");
+    expect(result.events).toHaveLength(1);
+    expect(result.events[0]?.event).toBe("stage");
+    expect(result.events[0]?.data).toBe('{"stage":"ready"}');
+  });
 });
