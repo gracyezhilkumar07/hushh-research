@@ -11,6 +11,7 @@ vi.mock("@/lib/services/api-service", () => ({
 }));
 
 import { ApiError, apiJson, MAX_RESPONSE_BYTES } from "@/lib/services/api-client";
+import { ApiService } from "@/lib/services/api-service";
 
 function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -59,8 +60,13 @@ describe("apiJson", () => {
 
 describe("apiJson — MAX_RESPONSE_BYTES Content-Length guard", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    vi.clearAllMocks(); 
   });
+  it("allows responses when Content-Length header is absent", async () => {
+      const response = jsonResponse({ ok: true });
+      vi.mocked(ApiService.apiFetch).mockResolvedValueOnce(response);
+      await expect(apiJson("/api/test")).resolves.toEqual({ ok: true });
+  }); 
 
   function responseWithContentLength(
     body: unknown,

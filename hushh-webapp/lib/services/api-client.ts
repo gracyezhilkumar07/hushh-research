@@ -51,7 +51,13 @@ export async function apiJson<T>(
 ): Promise<T> {
   const res = await ApiService.apiFetch(path, options);
 
-  // CWE-400: Reject oversized responses before buffering into memory.
+    // CWE-400: First-layer response-size guard.
+  // Reject explicitly oversized payloads before JSON parsing when
+  // the server provides a Content-Length header.
+  //
+  // This does NOT protect chunked, streamed, compressed, or missing-
+  // length responses; those continue through the existing fetch flow
+  // and are intentionally left to broader transport-level controls.
   // Only enforced when Content-Length is present; chunked or compressed
   // transfers without the header proceed through the existing flow.
   const contentLength = res.headers.get("content-length");
