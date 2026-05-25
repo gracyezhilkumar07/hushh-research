@@ -220,7 +220,7 @@ describe("parseSSEBlocks", () => {
 
     const result = parseSSEBlocks(input);
 
-    expect(result.remainder).toBe("");
+        expect(result.remainder).toBe("");
     expect(result.events).toHaveLength(1);
 
     const parsed = JSON.parse(result.events[0]!.data) as {
@@ -229,3 +229,5 @@ describe("parseSSEBlocks", () => {
     expect(parsed.payload.text).toBe("こんにちは 🌍");
   });
 });
+
+  
