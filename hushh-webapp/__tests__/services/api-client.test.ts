@@ -66,4 +66,14 @@ describe("apiJson", () => {
       status: 502,
     });
   });
-});
+})
+    it("preserves null detail payload fallback messaging", async () => {
+    mockApiFetch.mockResolvedValueOnce(
+      jsonResponse({ detail: null }, 502)
+    );
+
+    await expect(apiJson("/api/one/kyc/workflows")).rejects.toMatchObject({
+      message: "Request failed: 502",
+      status: 502,
+    });
+  });
