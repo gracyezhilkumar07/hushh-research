@@ -50,15 +50,15 @@ function statusLabel(task: DebateRunTask): string {
 
 function statusIcon(task: DebateRunTask) {
   if (task.status === "running") {
-    return <Icon icon={Loader2} size="sm" className="animate-spin text-sky-500" />;
+    return <Icon icon={Loader2} size="sm" className="animate-spin text-sky-500" aria-hidden="true" />;
   }
   if (task.status === "completed") {
-    return <Icon icon={CheckCircle2} size="sm" className="text-emerald-500" />;
+    return <Icon icon={CheckCircle2} size="sm" className="text-emerald-500" aria-hidden="true" />;
   }
   if (task.status === "failed") {
-    return <Icon icon={XCircle} size="sm" className="text-rose-500" />;
+    return <Icon icon={XCircle} size="sm" className="text-rose-500" aria-hidden="true" />;
   }
-  return <Icon icon={Ban} size="sm" className="text-amber-500" />;
+  return <Icon icon={Ban} size="sm" className="text-amber-500" aria-hidden="true" />;
 }
 
 function appTaskStatusLabel(task: AppBackgroundTask): string {
@@ -70,15 +70,15 @@ function appTaskStatusLabel(task: AppBackgroundTask): string {
 
 function appTaskStatusIcon(task: AppBackgroundTask) {
   if (task.status === "running") {
-    return <Icon icon={Loader2} size="sm" className="animate-spin text-sky-500" />;
+    return <Icon icon={Loader2} size="sm" className="animate-spin text-sky-500" aria-hidden="true" />;
   }
   if (task.status === "completed") {
-    return <Icon icon={CheckCircle2} size="sm" className="text-emerald-500" />;
+    return <Icon icon={CheckCircle2} size="sm" className="text-emerald-500" aria-hidden="true" />;
   }
   if (task.status === "canceled") {
-    return <Icon icon={Ban} size="sm" className="text-amber-500" />;
+    return <Icon icon={Ban} size="sm" className="text-amber-500" aria-hidden="true" />;
   }
-  return <Icon icon={XCircle} size="sm" className="text-rose-500" />;
+  return <Icon icon={XCircle} size="sm" className="text-rose-500" aria-hidden="true" />;
 }
 
 function appTaskStatusItems(task: AppBackgroundTask): string[] {
@@ -369,7 +369,7 @@ export function DebateTaskCenter({ triggerClassName, renderTrigger }: DebateTask
               }}
               aria-label="Open related screen"
             >
-              <Icon icon={ExternalLink} size="xs" />
+              <Icon icon={ExternalLink} size="xs" aria-hidden="true" />
             </Button>
           ) : null}
           {task.status === "running" &&
@@ -394,7 +394,7 @@ export function DebateTaskCenter({ triggerClassName, renderTrigger }: DebateTask
                 task.kind === "plaid_refresh" ? "Cancel refresh" : "Cancel import"
               }
             >
-              <Icon icon={X} size="xs" />
+              <Icon icon={X} size="xs" aria-hidden="true" />
             </Button>
           ) : null}
           {task.status !== "running" ? (
@@ -406,7 +406,7 @@ export function DebateTaskCenter({ triggerClassName, renderTrigger }: DebateTask
               onClick={() => AppBackgroundTaskService.dismissTask(task.taskId)}
               aria-label="Dismiss task"
             >
-              <Icon icon={X} size="xs" />
+              <Icon icon={X} size="xs" aria-hidden="true" />
             </Button>
           ) : null}
         </div>
