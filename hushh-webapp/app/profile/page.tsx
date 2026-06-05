@@ -4163,6 +4163,8 @@ function ProfilePageContent() {
                 inputMode="numeric"
                 placeholder="Enter license or CRD number"
                 disabled={refreshingRegulatoryProfile}
+                spellCheck={false}
+                autoComplete="off"
               />
             </label>
 
@@ -4175,6 +4177,8 @@ function ProfilePageContent() {
                 onChange={(event) => setRegulatoryRegulator(event.target.value)}
                 placeholder="SEC"
                 disabled={refreshingRegulatoryProfile}
+                spellCheck={false}
+                autoComplete="off"
               />
             </label>
 
