@@ -1,19 +1,19 @@
-# GitHub Workflows Overview
+﻿# GitHub Workflows Overview
 
 ## Visual Map
 
-CI ? PR ? Build ? Test ? UAT Deploy ? Production Deploy
+CI → PR → Build → Test → UAT → Production
 
 ## CI Pipeline
-- ci.yml ? CI checks
+- ci.yml → CI checks
 
-## Deployment Workflows
-- deploy-uat.yml ? UAT deployment
-- deploy-production.yml ? Production deployment
+## Deployment
+- deploy-uat.yml
+- deploy-production.yml
 
-## Validation Workflows
-- queue-validation.yml ? Validation checks
-- main-post-merge-smoke.yml ? Smoke tests
+## Validation
+- queue-validation.yml
+- main-post-merge-smoke.yml
 
 ## Notes
-- All workflows run via GitHub Actions
+- GitHub Actions automation pipeline
