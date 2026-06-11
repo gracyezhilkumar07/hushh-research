@@ -22,7 +22,7 @@ const FLOW_SHELL_STYLE = {
     "calc(var(--app-safe-area-bottom-effective, env(safe-area-inset-bottom, 0px)) + 2.5rem)",
 } as CSSProperties;
 
-function requiresVaultUnlockForRedirect(path?: string | null): boolean {
+export function requiresVaultUnlockForRedirect(path?: string | null): boolean {
   const normalizedPath = String(path ?? "").trim();
   if (!normalizedPath) {
     return false;
