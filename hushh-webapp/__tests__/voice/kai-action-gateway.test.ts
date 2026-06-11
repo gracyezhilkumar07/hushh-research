@@ -324,20 +324,21 @@ describe("kai-action-gateway", () => {
     );
   });
 
- it("returns full action list for empty search query", () => {
-  const results = searchKaiActions({
-    query: "",
-    appRuntimeState: makeRuntimeState({
-      persona: {
-        active: "investor",
-        primary_nav: "investor",
-        available: ["investor", "ria"],
-        transition_target: null,
-        ria_switch_available: true,
-        ria_setup_available: true,
-      },
-    }),
-  });
+  it("returns full action list for empty search query", () => {
+    const results = searchKaiActions({
+      query: "",
+      appRuntimeState: makeRuntimeState({
+        persona: {
+          active: "investor",
+          primary_nav: "investor",
+          available: ["investor", "ria"],
+          transition_target: null,
+          ria_switch_available: true,
+          ria_setup_available: true,
+        },
+      }),
+    });
 
-  expect(results.length).toBeGreaterThan(0);
+    expect(results.length).toBeGreaterThan(0);
+  });
 });
