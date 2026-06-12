@@ -54,7 +54,7 @@ export function OnboardingShell({
           </span>
         </div>
 
-        <div className="mt-4 flex gap-1.5">
+        <div className="mt-4 flex gap-1.5" aria-hidden="true">
           {Array.from({ length: totalSteps }, (_, i) => (
             <div
               key={i}
@@ -65,6 +65,9 @@ export function OnboardingShell({
             />
           ))}
         </div>
+        <span role="status" aria-atomic="true" className="sr-only">
+          {`Step ${currentStepIndex + 1} of ${totalSteps}`}
+        </span>
 
         <div className="mt-6 space-y-2 sm:mt-7">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
