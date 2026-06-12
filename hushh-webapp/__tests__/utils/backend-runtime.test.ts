@@ -110,4 +110,11 @@ describe("backend runtime resolution", () => {
 
     expect(helper.getPythonApiUrl()).toContain("127.0.0.1");
   });
+  it("handles empty portfolio input safely", () => {
+  expect(normalizePortfolio(undefined as never)).toEqual([]);
+});
+
+it("handles null portfolio input safely", () => {
+  expect(normalizePortfolio(null as never)).toEqual([]);
+});
 });
