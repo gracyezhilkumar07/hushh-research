@@ -1,13 +1,10 @@
 # Webapp Test Troubleshooting
 
-## Visual Map
-
-```text
-Repository root
-└── hushh-webapp
-    ├── package.json
-    ├── src
-    └── __tests__
+#Repository root
++-- hushh-webapp
+    +-- package.json
+    +-- src
+    +-- __tests__
 ```
 
 Run webapp test commands from `hushh-webapp`, not from the repository root.
