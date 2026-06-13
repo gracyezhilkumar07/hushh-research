@@ -93,13 +93,15 @@ describe("backend runtime resolution", () => {
       expect(helper.getPythonApiUrl()).toBe("https://api.example.com");
     });
 
-    it("skips a whitespace-only env var and falls through to the next key", async () => {
-      process.env.K_SERVICE = "hushh-webapp";
-      process.env.PYTHON_API_URL = "   ";
-      process.env.BACKEND_URL = "https://api.example.com";
-      const helper = await loadHelper();
-      expect(helper.getPythonApiUrl()).toBe("https://api.example.com");
-    });
+    it("skips a newline-only backend URL env var and falls through to the next key", async () => {
+  process.env.K_SERVICE = "hushh-webapp";
+  process.env.PYTHON_API_URL = "\n";
+  process.env.BACKEND_URL = "https://api.example.com";
+
+  const helper = await loadHelper();
+
+  expect(helper.getPythonApiUrl()).toBe("https://api.example.com");
+});
   });
 
   it("preserves localhost canonicalization stability for uppercase loopback hosts", async () => {
