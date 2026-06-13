@@ -187,5 +187,11 @@ describe("path resolver safety — dangerous edge case handling", () => {
     const result = resolveConsentNavigationTarget("data:text/html,<h1>test</h1>");
     expect(result.kind).toBe("external");
   });
+  it("keeps hash-fragment consent routes as external navigation", () => {
+  expect(resolveConsentNavigationTarget("/consents#review-section")).toEqual({
+    kind: "external",
+    href: "/consents#review-section",
+  });
+});
 });
 // ── End path safety coverage ──────────────────────────────────────────────────
