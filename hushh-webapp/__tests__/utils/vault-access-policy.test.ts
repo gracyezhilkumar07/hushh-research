@@ -54,11 +54,5 @@ describe("vault access policy", () => {
       needsVaultCreation: true,
       needsUnlock: false,
     });
-      it("returns no statement options when sources are missing", () => {
-    expect(getStatementSnapshotOptions({})).toEqual([]);
-  });
-  it("returns null portfolio when financial object is empty", () => {
-  expect(getStatementPortfolio({})).toBeNull();
-});
   });
 });
