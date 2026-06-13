@@ -1,19 +1,10 @@
 # Webapp Test Troubleshooting
 
-#Repository root
-+-- hushh-webapp
-    +-- package.json
-    +-- src
-    +-- __tests__
-```
+## Visual Context
 
-Run webapp test commands from `hushh-webapp`, not from the repository root.
+This guide helps troubleshoot common issues when running webapp tests locally, especially when `npm test` is run from the wrong directory.
 
-## `npm test` fails with `ENOENT package.json`
-
-If `npm test` shows an error like:
-
-```text
+## `npm test` fails with `ENOENT package.json````text
 Could not read package.json
 ENOENT: no such file or directory
 ```
