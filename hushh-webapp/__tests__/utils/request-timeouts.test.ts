@@ -244,4 +244,7 @@ describe("resolveSlowRequestTimeoutMs — fringe-input boundary fallbacks", () =
     expect(Number.isFinite(result)).toBe(true);
     expect(Number.isInteger(result)).toBe(true);
   });
+it("handles a zero timeout value", () => {
+  expect(normalizeTimeout(0)).toBe(0);
+});
 });
